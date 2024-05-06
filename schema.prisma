@@ -31,7 +31,7 @@ model User {
     @@map(name: "users")
 }
 
-model Field {
+model FormField {
     id      String  @id @default(cuid())
     name    String
     type    String
@@ -39,14 +39,16 @@ model Field {
     options String?
     form    Form?   @relation(fields: [formId], references: [id])
     formId  String?
+
+    @@map(name: "form_fields")
 }
 
 model Form {
-    id        String   @id @default(cuid())
-    name      String
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt @map(name: "updated_at")
-    fields    Field[]
+    id         String      @id @default(cuid())
+    name       String
+    createdAt  DateTime    @default(now()) @map(name: "created_at")
+    updatedAt  DateTime    @updatedAt @map(name: "updated_at")
+    formFields FormField[]
 
     @@map(name: "forms")
 }
