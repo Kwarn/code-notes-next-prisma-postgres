@@ -5,6 +5,23 @@ export const typeDefs = `
     email: String!
   }
 
+  type SelectMenuOption {
+    label: String!
+    value: String!
+  }
+
+  type Field {
+    name: String!
+    label: String!
+    type: String!
+    options: [SelectMenuOption] 
+  }
+
+  type Form {
+    name: String
+    fields: [Field!]!
+  }
+
   type Note {
     id: ID!
     category: String!

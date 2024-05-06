@@ -16,6 +16,7 @@ model Note {
     createdAt DateTime @default(now()) @map(name: "created_at")
     author    User?    @relation(fields: [authorId], references: [id])
     authorId  String?
+    formId    String?
 
     @@map(name: "notes")
 }
@@ -29,4 +30,24 @@ model User {
     notes     Note[]
 
     @@map(name: "users")
+}
+
+model Field {
+    id      String  @id @default(cuid())
+    name    String
+    type    String
+    label   String
+    options String?
+    form    Form?   @relation(fields: [formId], references: [id])
+    formId  String?
+}
+
+model Form {
+    id        String   @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+    fields    Field[]
+
+    @@map(name: "forms")
 }
