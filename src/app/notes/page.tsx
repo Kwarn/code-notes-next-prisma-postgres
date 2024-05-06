@@ -1,5 +1,5 @@
 import Table from "@/components/table";
-import { getAllNotes } from "../../../graphql/queries/getNotes";
+import { getAllNotes } from "../../graphql/queries/getNotes";
 
 export default async function NotesPage() {
   let notes;

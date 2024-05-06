@@ -1,4 +1,4 @@
-import { generateRandomNotes, generateRandomUsers } from "../src/helpers/utils";
+import { generateRandomNotes, generateRandomUsers } from "../../src/helpers/utils";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
