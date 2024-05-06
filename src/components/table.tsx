@@ -1,32 +1,32 @@
-import { Row } from "@/types/types";
+import { Note } from "@/types/types";
 
 interface TableProps {
-  rows: Row[];
+  rows: Note[];
 }
 
 export default function Table({ rows }: Readonly<TableProps>) {
-  const cell = (text: string | undefined, removeXBoarders: boolean = false) => {
-    if (!text) return;
-    return (
-      <div
-        className={`flex border-black border-solid w-full h-10 items-center p-3 ${
-          removeXBoarders ? "border-t-2 border-b-2" : "border-2"
-        }`}
-      >
-        <p>{text}</p>
-      </div>
-    );
-  };
-
   return (
-    <div className="w-full flex flex-row p-5">
-      {rows.map((row, index) => (
-        <div className="w-full flex flex-row" key={`${row.name}${index}`}>
-          {cell(row.name)}
-          {cell(row.description, true)}
-          {cell(row.dueDate)}
-        </div>
-      ))}
+    <div className="overflow-x-auto w-full p-10">
+      <table className="min-w-full bg-white border-collapse">
+        <thead>
+          <tr className="bg-gray-200 text-gray-700 uppercase">
+            <th className="py-2 px-3 text-left">Category</th>
+            <th className="py-2 px-3 text-left">Notes</th>
+            <th className="py-2 px-3 text-right">Date</th>
+          </tr>
+        </thead>
+        <tbody className="text-gray-600">
+          {rows?.map((row, index) => (
+            <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
+              <td className="py-2 px-3">{row.category}</td>
+              <td className="py-2 px-3">{row.content}</td>
+              <td className="py-2 px-3 text-right">
+                {new Date(parseInt(row.createdAt)).toISOString()}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

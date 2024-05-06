@@ -16,3 +16,25 @@ export const generateRandomNumber = (max: number = 1000) => {
   const randomNumber = Math.floor(randomNumberInRange);
   return randomNumber + 1;
 };
+
+const noteCategories = [
+  "front-end",
+  "back-end",
+  "dev-ops",
+  "general",
+  "next",
+  "prisma",
+  "graphql",
+  "vercel",
+];
+
+export const generateRandomNotes = (n: number) => {
+  return Array.from({ length: n }, () => {
+    const category =
+      noteCategories[generateRandomNumber(noteCategories.length - 1)];
+    return {
+      category: category,
+      content: `A cool note about ${category}`,
+    };
+  });
+};

@@ -1,6 +1,10 @@
-export type Row = {
-  priority: number;
-  name: string;
-  description: string;
-  dueDate?: string;
+export type Note = {
+  category: string;
+  content: string;
+  createdAt: string;
 };
+
+export type FormField = {
+  label: string;
+  type: string;
+}
