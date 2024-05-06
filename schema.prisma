@@ -16,7 +16,6 @@ model Note {
     createdAt DateTime @default(now()) @map(name: "created_at")
     author    User?    @relation(fields: [authorId], references: [id])
     authorId  String?
-    formId    String?
 
     @@map(name: "notes")
 }
