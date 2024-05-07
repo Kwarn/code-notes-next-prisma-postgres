@@ -19,6 +19,12 @@ export default function Header() {
       >
         notes list
       </Link>
+      <Link
+        className="text-xl ml-10 rounded-xl w-max p-2 bg-white"
+        href={"/add-note"}
+      >
+        Add note
+      </Link>
     </div>
   );
 }

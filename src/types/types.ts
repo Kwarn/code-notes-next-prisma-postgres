@@ -7,4 +7,5 @@ export type Note = {
 export type FormField = {
   label: string;
   type: string;
+  options?: string; // json
 }

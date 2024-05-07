@@ -1,6 +1,5 @@
 import { generateRandomNotes, generateRandomUsers } from "./utils";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 async function main() {
   await createUsersWithNotes();
@@ -28,7 +27,7 @@ async function createAddNoteForm() {
   await prisma.form.create({
     data: {
       name: "createNote",
-      fields: {
+      formFields: {
         create: [
           {
             label: "Select category",

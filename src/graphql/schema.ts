@@ -5,21 +5,18 @@ export const typeDefs = `
     email: String!
   }
 
-  type SelectMenuOption {
-    label: String!
-    value: String!
-  }
-
   type Field {
+    id: ID!
     name: String!
     label: String!
     type: String!
-    options: [SelectMenuOption] 
+    options: String
   }
 
   type Form {
-    name: String
-    fields: [Field!]!
+    id: ID
+    name: String!
+    formFields: [Field!]!
   }
 
   type Note {
@@ -32,5 +29,6 @@ export const typeDefs = `
   type Query {
     users: [User]!
     notes: [Note]
+    form(formName: String!): Form!
   }
 `;
