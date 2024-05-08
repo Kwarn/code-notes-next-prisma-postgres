@@ -31,4 +31,8 @@ export const typeDefs = `
     notes: [Note]
     form(formName: String!): Form!
   }
+
+  type Mutation {
+    createNote(category: String!, content: String!): String
+  }
 `;

@@ -1,10 +1,10 @@
-export type Note = {
+export type NoteType = {
   category: string;
   content: string;
-  createdAt: string;
 };
 
-export type FormField = {
+export type FormFieldType = {
+  name: string;
   label: string;
   type: string;
   options?: string; // json

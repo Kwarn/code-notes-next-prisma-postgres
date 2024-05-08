@@ -1,5 +1,6 @@
 import { YogaInitialContext } from "graphql-yoga";
 import prisma from "@/lib/prisma";
+import { NoteType } from "@/types/types";
 
 export const resolvers = {
   Query: {
@@ -18,6 +19,15 @@ export const resolvers = {
         where: { name: formName },
         include: { formFields: true },
       });
+    },
+  },
+  Mutation: {
+    createNote: (
+      _: undefined,
+      { category, content }: NoteType,
+      context: YogaInitialContext
+    ) => {
+      return prisma.note.create({ data: { category, content } });
     },
   },
 };

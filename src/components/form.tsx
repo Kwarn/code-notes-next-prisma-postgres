@@ -1,33 +1,37 @@
-import { FormField } from "@/types/types";
-import { ChangeEventHandler } from "react";
+import { createNote } from "@/actions/createNote";
+import { FormFieldType, NoteType } from "@/types/types";
 
 type ComponentMap = {
   [key: string]: (
+    label: string,
     value: string,
-    handleSelectChange: ChangeEventHandler<HTMLSelectElement>,
     options: { label: string; value: string }[]
   ) => JSX.Element;
 };
 
 interface FormProps {
-  formFields: FormField[];
+  formFields: FormFieldType[];
 }
 
 export default async function Form({ formFields }: FormProps) {
-  console.log(formFields);
   const selectMenu = (
-    value: string,
-    handleSelectChange: ChangeEventHandler<HTMLSelectElement>,
+    name: string,
+    label: string,
     options: { label: string; value: string }[]
   ) => (
-    <select value={""} onChange={handleSelectChange}>
-      <option value="">Select an option</option>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
+    <>
+      <label htmlFor={label}>{label}</label>
+      <input type="select" value={""} name={name}>
+        <option id={label} value="">
+          Select an option
         </option>
-      ))}
-    </select>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </input>
+    </>
   );
 
   const textArea = () => {
@@ -38,14 +42,13 @@ export default async function Form({ formFields }: FormProps) {
     textarea: textArea,
   };
 
-  const test = () => {};
 
   return (
     <div className="flex flex-row items-center rounded-lg m-5 lg:h-20 bg-gray-300">
-      <form>
+      <form action={createNote}>
         {formFields.map((field) => {
           const options = field?.options ? JSON.parse(field.options) : "";
-          return componentMap[field.type]("", test, options);
+          return componentMap[field.type](field.name, field.label, options);
         })}
       </form>
     </div>
