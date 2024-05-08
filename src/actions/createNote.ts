@@ -1,6 +1,7 @@
 import { createNoteMutation } from "@/graphql/mutations/createNote";
 
 export const createNote = async (formData: FormData) => {
+  'use server'
   console.log(formData.get("content"));
   //   try {
   //     const response = await fetch("http://localhost:3000/api/graphql", {
