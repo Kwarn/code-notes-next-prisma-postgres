@@ -1,5 +1,5 @@
 import Form from "@/components/form";
-import { getAddNoteForm } from "@/graphql/queries/getAddNoteForm";
+import { getAddNoteForm } from "@/graphql/queries/forms";
 
 export default async function AddNotePage() {
   let form;

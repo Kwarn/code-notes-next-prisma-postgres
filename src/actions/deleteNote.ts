@@ -1,19 +1,17 @@
-import { createNoteMutation } from "@/graphql/mutations/notes";
+import { deleteNoteMutation } from "@/graphql/mutations/notes";
 
-export const createNote = async (formData: FormData) => {
+export const deleteNote = async (formData: FormData) => {
   "use server";
-  const category = formData.get("category");
-  const content = formData.get("content");
 
-  if (!category || !content) return;
-
+  const id = formData.get("id");
+  console.log('delete note action id', id)
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query: createNoteMutation,
-        variables: { content, category },
+        query: deleteNoteMutation,
+        variables: { id },
       }),
       cache: "no-store",
     });
@@ -21,10 +19,7 @@ export const createNote = async (formData: FormData) => {
     const responseData = await response.json();
 
     if (response.ok) {
-      console.log(
-        "Note created successfully:",
-        responseData.data.createNoteForUser
-      );
+      console.log("Note deleted successfully:", responseData);
     } else {
       console.error("Failed to create note:", responseData.errors);
     }

@@ -43,5 +43,12 @@ export const resolvers = {
         },
       });
     },
+    deleteNote: (_: undefined, { id }: NoteType) => {
+
+      console.log(id)
+      return prisma.note.delete({
+        where: { id },
+      });
+    },
   },
 };

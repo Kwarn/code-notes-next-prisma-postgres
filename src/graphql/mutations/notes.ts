@@ -7,3 +7,11 @@ export const createNoteMutation = `
     }
   }
 `;
+
+export const deleteNoteMutation = `
+  mutation deleteNote ($id: String!) {
+    deleteNote(id: $id) {
+      id
+    }
+  }
+`;

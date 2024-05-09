@@ -35,5 +35,6 @@ export const typeDefs = `
 
   type Mutation {
     createNoteForUser(category: String!, content: String!): Note!
+    deleteNote(id: String!): Note!
   }
 `;

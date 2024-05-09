@@ -1,4 +1,5 @@
 export type NoteType = {
+  id: string;
   category: string;
   content: string;
   createdAt: string;
