@@ -1,5 +1,7 @@
 import { createNote } from "@/actions/createNote";
 import { FormFieldOptionsType, FormFieldType } from "@/types/types";
+import { useFormStatus } from "react-dom";
+import ClientButton from "./clientButton";
 
 type ComponentMap = {
   [key: string]: (field: FormFieldType) => JSX.Element;
@@ -27,7 +29,7 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
     );
   };
 
-  const textArea = ({ name, label, options }: FormFieldType) => {
+  const textArea = ({ name, label }: FormFieldType) => {
     return (
       <div key={name}>
         <label htmlFor={label}>{label}</label>
@@ -45,7 +47,7 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
     <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-300">
       <form action={createNote}>
         {formFields.map((field) => componentMap[field.type](field))}
-        <button type="submit">Add note</button>
+        <ClientButton defaultText="Add note" pendingText="Adding note..." />
       </form>
     </div>
   );

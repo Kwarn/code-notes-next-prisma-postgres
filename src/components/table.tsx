@@ -1,6 +1,6 @@
 import { formatDate } from "@/utils/utils";
 import { NoteWithAuthorType } from "@/types/types";
-import Button from "./button";
+import Button from "./serverActionButton";
 import { deleteNote } from "@/actions/deleteNote";
 
 interface TableProps {

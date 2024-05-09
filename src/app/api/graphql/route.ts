@@ -10,7 +10,6 @@ const { handleRequest } = createYoga({
   context: (req) => ({
     ...req,
     prisma,
-    // Add other properties to your context as needed
   }),
   graphqlEndpoint: "/api/graphql",
   fetchAPI: { Response },
