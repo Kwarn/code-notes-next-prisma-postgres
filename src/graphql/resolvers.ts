@@ -7,7 +7,15 @@ export const resolvers = {
       return prisma.user.findMany();
     },
     notes: (_: undefined, __: undefined) => {
-      return prisma.note.findMany();
+      return prisma.note.findMany({
+        include: {
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
     },
     form: (_parent: undefined, { formName }: { formName: string }) => {
       return prisma.form.findFirst({
@@ -18,7 +26,7 @@ export const resolvers = {
   },
   Mutation: {
     createNoteForUser: (_: undefined, { category, content }: NoteType) => {
-      const userId = "clvz0zoms0000epilrzsz15tx"; // TODO: move this to context
+      const userId = "clvz16fi20000plfiil3p72us"; // TODO: move this to context
       const user = prisma.user.findUnique({
         where: {
           id: userId,

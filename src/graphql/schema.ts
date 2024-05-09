@@ -24,15 +24,16 @@ export const typeDefs = `
     category: String!
     content: String!
     createdAt: String!
+    author: User!
   }
 
   type Query {
     users: [User]!
-    notes: [Note]
+    notes: [Note]!
     form(formName: String!): Form!
   }
 
   type Mutation {
-    createNote(category: String!, content: String!): Note!
+    createNoteForUser(category: String!, content: String!): Note!
   }
 `;

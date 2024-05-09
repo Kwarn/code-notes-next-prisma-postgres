@@ -1,6 +1,6 @@
 export const createNoteMutation = `
-  mutation CreateNote($content: String!, $category: String!) {
-    createNote(content: $content, category: $category) {
+  mutation createNoteForUser($content: String!, $category: String!) {
+    createNoteForUser(content: $content, category: $category) {
       id
       content
       category

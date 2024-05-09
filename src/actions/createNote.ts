@@ -12,8 +12,8 @@ export const createNote = async (formData: FormData) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query: createNoteMutation, // Use 'query' field for mutations
-        variables: { content, category }, // Provide mutation variables
+        query: createNoteMutation,
+        variables: { content, category },
       }),
       cache: "no-store",
     });
@@ -21,7 +21,10 @@ export const createNote = async (formData: FormData) => {
     const responseData = await response.json();
 
     if (response.ok) {
-      console.log("Note created successfully:", responseData.data.createNote);
+      console.log(
+        "Note created successfully:",
+        responseData.data.createNoteForUser
+      );
     } else {
       console.error("Failed to create note:", responseData.errors);
     }

@@ -1,6 +1,15 @@
 export type NoteType = {
   category: string;
   content: string;
+  createdAt: string;
+};
+
+export type AuthorType = {
+  name: string;
+};
+
+export type NoteWithAuthorType = NoteType & {
+  author: AuthorType;
 };
 
 export type FormFieldOptionsType = {

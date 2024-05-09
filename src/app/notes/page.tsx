@@ -1,21 +1,23 @@
 import Table from "@/components/table";
-import { getAllNotes } from "../../graphql/queries/getNotes";
+import { getNotes } from "../../graphql/queries/getNotes";
+import { NoteWithAuthorType } from "@/types/types";
 
 export default async function NotesPage() {
-  let notes;
+  let notes: NoteWithAuthorType[] | null = null;
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query: getAllNotes,
+        query: getNotes,
       }),
       cache: "no-store", // TODO
     });
+
     const { data } = await response.json();
-    if (data && data.notes) {
-      notes = data.notes;
-    }
+    if (!data || !data.notes) throw new Error("Error fetching notes");
+
+    notes = data.notes;
   } catch (error) {
     console.error("Error fetching notes:", error);
   }
@@ -23,7 +25,7 @@ export default async function NotesPage() {
     <div className="w-full h-screen">
       <h1 className="text-white">Notes</h1>
       <div className="flex flex-row w-full">
-        <Table rows={notes} />
+        {notes && <Table rows={notes} />}
       </div>
     </div>
   );
