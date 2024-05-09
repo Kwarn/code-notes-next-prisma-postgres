@@ -1,6 +1,6 @@
 import { formatDate } from "@/utils/utils";
 import { NoteWithAuthorType } from "@/types/types";
-import Button from "./serverActionButton";
+import SeverActionButton from "./serverActionButton";
 import { deleteNote } from "@/actions/deleteNote";
 
 interface TableProps {
@@ -34,7 +34,11 @@ export default function Table({ rows }: Readonly<TableProps>) {
                   {formatDate(Number(createdAt))}
                 </td>
                 <td className="py-2 px-3">
-                  <Button id={id} text="delete" callback={deleteNote}></Button>
+                  <SeverActionButton
+                    id={id}
+                    text="delete"
+                    action={deleteNote}
+                  />
                 </td>
               </tr>
             )

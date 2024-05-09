@@ -1,6 +1,5 @@
 import { createNote } from "@/actions/createNote";
 import { FormFieldOptionsType, FormFieldType } from "@/types/types";
-import { useFormStatus } from "react-dom";
 import ClientButton from "./clientButton";
 
 type ComponentMap = {
@@ -12,6 +11,10 @@ interface FormProps {
 }
 
 export default async function Form({ formFields }: Readonly<FormProps>) {
+  const callback = async () => {
+    "use server";
+    console.log("callback fired");
+  };
   const selectMenu = ({ name, label, options }: FormFieldType) => {
     const _options = options && JSON.parse(options);
     return (
@@ -47,7 +50,11 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
     <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-300">
       <form action={createNote}>
         {formFields.map((field) => componentMap[field.type](field))}
-        <ClientButton defaultText="Add note" pendingText="Adding note..." />
+        <ClientButton
+          defaultText="Add note"
+          pendingText="Adding note..."
+          completeCallback={callback}
+        />
       </form>
     </div>
   );

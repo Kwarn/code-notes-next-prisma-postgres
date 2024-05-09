@@ -1,12 +1,12 @@
 interface ButtonProps {
   id: string;
   text: string;
-  callback: ((formData: FormData) => void) | undefined;
+  action: ((formData: FormData) => void) | undefined;
 }
 
-export default function Button({ id, text, callback }: Readonly<ButtonProps>) {
+export default function Button({ id, text, action }: Readonly<ButtonProps>) {
   return (
-    <form action={callback}>
+    <form action={action}>
       <input
         name="id"
         className="hidden"
