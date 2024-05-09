@@ -1,6 +1,6 @@
 export const generateRandomUsers = (numOfUsers: number) => {
   const users: { name: string; email: string }[] = [];
-  for (let i = 0; i <= numOfUsers; i++) {
+  for (let i = 0; i < numOfUsers; i++) {
     const randomNum = generateRandomNumber(1000000000);
     users.push({
       name: `test user ${randomNum}`,

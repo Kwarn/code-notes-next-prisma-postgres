@@ -13,9 +13,9 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
   const selectMenu = ({ name, label, options }: FormFieldType) => {
     const _options = options && JSON.parse(options);
     return (
-      <>
+      <div key={name}>
         <label htmlFor={label}>{label}</label>
-        <select name={name}>
+        <select required name={name}>
           <option id={label}>Select an option</option>
           {_options.map((option: FormFieldOptionsType) => (
             <option key={option.value} value={option.value}>
@@ -23,12 +23,17 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
             </option>
           ))}
         </select>
-      </>
+      </div>
     );
   };
 
-  const textArea = () => {
-    return <div></div>;
+  const textArea = ({ name, label, options }: FormFieldType) => {
+    return (
+      <div key={name}>
+        <label htmlFor={label}>{label}</label>
+        <textarea required id={name} name={name}></textarea>
+      </div>
+    );
   };
 
   const componentMap: ComponentMap = {
@@ -39,10 +44,8 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
   return (
     <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-300">
       <form action={createNote}>
-        {formFields.map((field) => {
-          const options = field?.options ? JSON.parse(field.options) : null;
-          return componentMap[field.type](field);
-        })}
+        {formFields.map((field) => componentMap[field.type](field))}
+        <button type="submit">Add note</button>
       </form>
     </div>
   );

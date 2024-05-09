@@ -1,13 +1,25 @@
 import { generateRandomNotes, generateRandomUsers } from "./utils";
-import prisma from "@/lib/prisma";
+import prisma from "../lib/prisma";
 
 async function main() {
+  await prisma.note.deleteMany({});
+  await prisma.user.deleteMany({});
+  await prisma.form.deleteMany({});
+  await prisma.formField.deleteMany({});
   await createUsersWithNotes();
   await createAddNoteForm();
 }
 
 async function createUsersWithNotes() {
-  const users = generateRandomUsers(10);
+  // create admin user
+  await prisma.user.create({
+    data: {
+      name: "Admin",
+      email: "karlwarner.dev@gmail.com",
+    },
+  });
+  // create other dummy users
+  const users = generateRandomUsers(2);
   for (const { name, email } of users) {
     await prisma.user.create({
       data: {
@@ -15,7 +27,7 @@ async function createUsersWithNotes() {
         email,
         notes: {
           createMany: {
-            data: generateRandomNotes(3),
+            data: generateRandomNotes(2),
           },
         },
       },

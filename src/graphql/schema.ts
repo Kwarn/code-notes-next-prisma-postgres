@@ -33,6 +33,6 @@ export const typeDefs = `
   }
 
   type Mutation {
-    createNote(category: String!, content: String!): String
+    createNote(category: String!, content: String!): Note!
   }
 `;
