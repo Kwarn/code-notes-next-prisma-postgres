@@ -1,6 +1,7 @@
 import { createNote } from "@/actions/createNote";
 import { FormFieldOptionsType, FormFieldType } from "@/types/types";
-import ClientButton from "./clientButton";
+import ClientButton from "./clientFormButton";
+import { redirect } from "next/navigation";
 
 type ComponentMap = {
   [key: string]: (field: FormFieldType) => JSX.Element;
@@ -11,10 +12,6 @@ interface FormProps {
 }
 
 export default async function Form({ formFields }: Readonly<FormProps>) {
-  const callback = async () => {
-    "use server";
-    console.log("callback fired");
-  };
   const selectMenu = ({ name, label, options }: FormFieldType) => {
     const _options = options && JSON.parse(options);
     return (
@@ -46,15 +43,17 @@ export default async function Form({ formFields }: Readonly<FormProps>) {
     textarea: textArea,
   };
 
+  const submit = async (formData: FormData) => {
+    "use server";
+    const result = await createNote(formData);
+    if (result?.success) redirect(`/notes?noteId=${result.noteId}`);
+  };
+
   return (
     <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-300">
-      <form action={createNote}>
+      <form action={submit}>
         {formFields.map((field) => componentMap[field.type](field))}
-        <ClientButton
-          defaultText="Add note"
-          pendingText="Adding note..."
-          completeCallback={callback}
-        />
+        <ClientButton defaultText="Add note" pendingText="Adding note..." />
       </form>
     </div>
   );

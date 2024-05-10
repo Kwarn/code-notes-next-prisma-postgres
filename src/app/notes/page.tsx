@@ -2,7 +2,11 @@ import Table from "@/components/table";
 import { getNotes } from "../../graphql/queries/notes";
 import { NoteWithAuthorType } from "@/types/types";
 
-export default async function NotesPage() {
+interface NotePageProps {
+  searchParams: { [key: string]: string };
+}
+
+export default async function NotesPage({ searchParams }: NotePageProps) {
   let notes: NoteWithAuthorType[] | null = null;
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
@@ -25,7 +29,7 @@ export default async function NotesPage() {
     <div className="w-full h-screen">
       <h1 className="text-white">Notes</h1>
       <div className="flex flex-row w-full">
-        {notes && <Table rows={notes} />}
+        {notes && <Table activeRowId={searchParams?.noteId} rows={notes} />}
       </div>
     </div>
   );

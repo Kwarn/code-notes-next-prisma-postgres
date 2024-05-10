@@ -21,14 +21,11 @@ export const createNote = async (formData: FormData) => {
     const responseData = await response.json();
 
     if (response.ok) {
-      console.log(
-        "Note created successfully:",
-        responseData.data.createNoteForUser
-      );
+      return { success: true, noteId: responseData.data.createNoteForUser.id };
     } else {
       console.error("Failed to create note:", responseData.errors);
+      return { success: false };
     }
-    return;
   } catch (error) {
     console.error("Error creating note:", error);
     return;
