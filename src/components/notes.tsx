@@ -7,11 +7,13 @@ import { useOptimistic } from "react";
 interface NotePageProps {
   notes: NoteWithAuthorType[] | undefined | null;
   deleteNote: (formData: FormData) => void;
+  updateNote: (formData: FormData) => void;
 }
 
 export default function NotesComponent({
   notes,
   deleteNote,
+  updateNote,
 }: Readonly<NotePageProps>) {
   const [optimisticNotes, deleteOptimisticNote] = useOptimistic(
     notes,
@@ -29,6 +31,7 @@ export default function NotesComponent({
             rows={optimisticNotes}
             deleteOptimisticNote={deleteOptimisticNote}
             deleteNote={deleteNote}
+            updateNote={updateNote}
           />
         )}
       </div>

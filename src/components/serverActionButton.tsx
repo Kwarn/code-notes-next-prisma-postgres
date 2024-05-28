@@ -2,7 +2,7 @@ interface ButtonProps {
   id: string;
   text: string;
   action: (formData: FormData) => void;
-  optimisticCb: (noteId: string) => void;
+  optimisticCb?: (noteId: string) => void;
 }
 
 export default function Button({
@@ -16,7 +16,7 @@ export default function Button({
       action={async (formData) => {
         const noteId = formData.get("id") as string;
         if (!noteId) return;
-        optimisticCb(noteId);
+        if (optimisticCb) optimisticCb(noteId);
         return action(formData);
       }}
     >

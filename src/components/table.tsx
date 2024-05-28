@@ -1,4 +1,3 @@
-import { formatDate } from "@/utils/utils";
 import { NoteWithAuthorType } from "@/types/types";
 import SeverActionButton from "./serverActionButton";
 
@@ -6,12 +5,14 @@ interface TableProps {
   rows: NoteWithAuthorType[];
   deleteOptimisticNote: (noteId: string) => void;
   deleteNote: (formData: FormData) => void;
+  updateNote: (formData: FormData) => void;
 }
 
 export default function Table({
   rows,
   deleteOptimisticNote,
   deleteNote,
+  updateNote,
 }: Readonly<TableProps>) {
   return (
     <div className="overflow-x-auto w-full p-10">
@@ -36,12 +37,17 @@ export default function Table({
                 <td className="py-2 px-3">{category}</td>
                 <td className="py-2 px-3">{content}</td>
                 <td className="py-2 px-3 text-right">{createdAt}</td>
-                <td className="py-2 px-3">
+                <td className="py-2 px-3 text-right">
                   <SeverActionButton
                     optimisticCb={deleteOptimisticNote}
                     id={id}
                     text="delete"
                     action={deleteNote}
+                  />
+                  <SeverActionButton
+                    id={id}
+                    text="edit"
+                    action={updateNote}
                   />
                 </td>
               </tr>

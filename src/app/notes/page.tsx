@@ -3,6 +3,7 @@ import { NoteWithAuthorType } from "@/types/types";
 import NotesComponent from "@/components/notes";
 import { deleteNote } from "@/actions/deleteNote";
 import { formatDate } from "@/utils/utils";
+import { redirect } from "next/navigation";
 
 export default async function NotesPage() {
   let notes: NoteWithAuthorType[] | undefined | null = null;
@@ -29,9 +30,19 @@ export default async function NotesPage() {
   } catch (error) {
     console.error("Error fetching notes:", error);
   }
+
+  const updateNote = async (formData: FormData) => {
+    'use server'
+    const noteId = formData.get("id");
+    redirect(`/add-note?noteId=${noteId}`);
+  };
   return (
     <div className="w-full h-screen">
-      <NotesComponent notes={notes} deleteNote={deleteNote} />
+      <NotesComponent
+        notes={notes}
+        deleteNote={deleteNote}
+        updateNote={updateNote}
+      />
     </div>
   );
 }

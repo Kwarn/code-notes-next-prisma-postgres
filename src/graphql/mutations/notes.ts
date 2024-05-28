@@ -15,3 +15,8 @@ export const deleteNoteMutation = `
     }
   }
 `;
+
+export const updateNoteMutation = `
+  mutation updateNote ($id: String!, $content: String!, $category: String!) {
+    id
+  }`;
