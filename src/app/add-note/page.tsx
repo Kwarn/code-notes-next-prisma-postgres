@@ -10,12 +10,10 @@ export default async function AddNotePage() {
       body: JSON.stringify({
         query: getAddNoteForm,
       }),
-      cache: "no-store", // TODO
+      cache: "no-store", // TODO: here while developing to avoid caching side effects while debugging
     });
     const { data } = await response.json();
-    if (data && data.form) {
-      form = data.form;
-    }
+    form = data?.form;
   } catch (error) {
     console.error("Error fetching notes:", error);
   }

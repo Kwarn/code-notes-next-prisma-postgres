@@ -16,7 +16,7 @@ export const createNote = async (formData: FormData) => {
         query: createNoteMutation,
         variables: { content, category },
       }),
-      cache: "no-store",
+      cache: "no-store", // TODO: here while developing to avoid caching side effects while debugging
     });
 
     const responseData = await response.json();
