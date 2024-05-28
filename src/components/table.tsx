@@ -1,14 +1,18 @@
 import { formatDate } from "@/utils/utils";
 import { NoteWithAuthorType } from "@/types/types";
 import SeverActionButton from "./serverActionButton";
-import { deleteNote } from "@/actions/deleteNote";
 
 interface TableProps {
-  activeRowId?: string;
   rows: NoteWithAuthorType[];
+  deleteOptimisticNote: (noteId: string) => void;
+  deleteNote: (formData: FormData) => void;
 }
 
-export default function Table({ activeRowId, rows }: Readonly<TableProps>) {
+export default function Table({
+  rows,
+  deleteOptimisticNote,
+  deleteNote,
+}: Readonly<TableProps>) {
   return (
     <div className="overflow-x-auto w-full p-10">
       <table className="min-w-full bg-white border-collapse">
@@ -26,22 +30,15 @@ export default function Table({ activeRowId, rows }: Readonly<TableProps>) {
             ({ id, createdAt, category, content, author: { name } }, index) => (
               <tr
                 key={createdAt}
-                className={
-                  activeRowId === id
-                    ? "bg-black"
-                    : index % 2 === 0
-                    ? "bg-gray-100"
-                    : ""
-                }
+                className={`${index % 2 === 0 ? "bg-gray-100" : ""}`}
               >
                 <td className="py-2 px-3 text-left">{name}</td>
                 <td className="py-2 px-3">{category}</td>
                 <td className="py-2 px-3">{content}</td>
-                <td className="py-2 px-3 text-right">
-                  {formatDate(Number(createdAt))}
-                </td>
+                <td className="py-2 px-3 text-right">{createdAt}</td>
                 <td className="py-2 px-3">
                   <SeverActionButton
+                    optimisticCb={deleteOptimisticNote}
                     id={id}
                     text="delete"
                     action={deleteNote}

@@ -1,13 +1,11 @@
-import Table from "@/components/table";
 import { getNotes } from "../../graphql/queries/notes";
 import { NoteWithAuthorType } from "@/types/types";
+import NotesComponent from "@/components/notes";
+import { deleteNote } from "@/actions/deleteNote";
+import { formatDate } from "@/utils/utils";
 
-interface NotePageProps {
-  searchParams: { [key: string]: string };
-}
-
-export default async function NotesPage({ searchParams }: NotePageProps) {
-  let notes: NoteWithAuthorType[] | null = null;
+export default async function NotesPage() {
+  let notes: NoteWithAuthorType[] | undefined | null = null;
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
       method: "POST",
@@ -21,16 +19,19 @@ export default async function NotesPage({ searchParams }: NotePageProps) {
     const { data } = await response.json();
     if (!data || !data.notes) throw new Error("Error fetching notes");
 
-    notes = data.notes;
+    const formattedNotes = data.notes.map((note: NoteWithAuthorType) => ({
+      ...note,
+      // do date format here to prevent hydration error due to mismatch between server and client date.
+      createdAt: formatDate(Number(note.createdAt)),
+    }));
+
+    notes = formattedNotes;
   } catch (error) {
     console.error("Error fetching notes:", error);
   }
   return (
     <div className="w-full h-screen">
-      <h1 className="text-white">Notes</h1>
-      <div className="flex flex-row w-full">
-        {notes && <Table activeRowId={searchParams?.noteId} rows={notes} />}
-      </div>
+      <NotesComponent notes={notes} deleteNote={deleteNote} />
     </div>
   );
 }

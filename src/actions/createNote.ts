@@ -1,4 +1,5 @@
 import { createNoteMutation } from "@/graphql/mutations/notes";
+import { revalidatePath } from "next/cache";
 
 export const createNote = async (formData: FormData) => {
   "use server";
@@ -29,5 +30,7 @@ export const createNote = async (formData: FormData) => {
   } catch (error) {
     console.error("Error creating note:", error);
     return;
+  } finally {
+    revalidatePath("/notes");
   }
 };

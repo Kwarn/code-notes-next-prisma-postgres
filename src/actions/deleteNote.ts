@@ -1,10 +1,10 @@
 import { deleteNoteMutation } from "@/graphql/mutations/notes";
+import { revalidatePath } from "next/cache";
 
 export const deleteNote = async (formData: FormData) => {
   "use server";
 
   const id = formData.get("id");
-  console.log('delete note action id', id)
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
       method: "POST",
@@ -27,5 +27,7 @@ export const deleteNote = async (formData: FormData) => {
   } catch (error) {
     console.error("Error creating note:", error);
     return;
+  } finally {
+    revalidatePath("/notes");
   }
 };
