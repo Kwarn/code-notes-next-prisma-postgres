@@ -23,4 +23,5 @@ export type FormFieldType = {
   label: string;
   type: string;
   options?: string; // json
+  defaultValue?: string;
 };

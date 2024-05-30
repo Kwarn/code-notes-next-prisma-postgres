@@ -12,12 +12,12 @@ export const getNotes = `
 }
  `;
 
-export const getNote = `
-  query note($id: ID!) {
-    note(id: $id) {
-      id
-      category
-      content
-    }
+export const getNoteById = `
+query note($id: String!) {
+  note(id: $id) {
+    id
+    category
+    content
   }
+}
 `;

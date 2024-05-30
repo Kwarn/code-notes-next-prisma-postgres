@@ -17,8 +17,8 @@ export const resolvers = {
         },
       });
     },
-    note: (_: undefined, { id }: NoteType) => {
-      return prisma.note.findUnique({
+    note: (_: undefined, { id }: { id: string }) => {
+      return prisma.note.findFirst({
         where: { id },
       });
     },

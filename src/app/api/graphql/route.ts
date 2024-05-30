@@ -3,6 +3,7 @@ import { resolvers } from "../../../graphql/resolvers";
 import { typeDefs } from "../../../graphql/schema";
 
 const { handleRequest } = createYoga({
+  logging: "debug",
   schema: createSchema({
     typeDefs,
     resolvers,
