@@ -18,7 +18,7 @@ export default async function NotesPage() {
     });
 
     const { data } = await response.json();
-    if (!data || !data.notes) throw new Error("Error fetching notes");
+    if (!data?.notes) throw new Error("Error fetching notes");
 
     const formattedNotes = data.notes.map((note: NoteWithAuthorType) => ({
       ...note,
@@ -34,7 +34,7 @@ export default async function NotesPage() {
   const updateNote = async (formData: FormData) => {
     'use server'
     const noteId = formData.get("id");
-    redirect(`/add-note?noteId=${noteId}`);
+    redirect(`/add-note/${noteId}`);
   };
   return (
     <div className="w-full h-screen">

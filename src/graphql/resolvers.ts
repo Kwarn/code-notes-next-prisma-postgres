@@ -17,6 +17,11 @@ export const resolvers = {
         },
       });
     },
+    note: (_: undefined, { id }: NoteType) => {
+      return prisma.note.findUnique({
+        where: { id },
+      });
+    },
     form: (_parent: undefined, { formName }: { formName: string }) => {
       return prisma.form.findFirst({
         where: { name: formName },
@@ -33,7 +38,7 @@ export const resolvers = {
         },
       });
 
-      if (!user) throw new Error(`User with ID ${userId} not found`);
+      if (!user) throw new Error(`User with ID ${userId} not found`); // TODO: handle this better
 
       return prisma.note.create({
         data: {
@@ -44,8 +49,6 @@ export const resolvers = {
       });
     },
     deleteNote: (_: undefined, { id }: NoteType) => {
-
-      console.log(id)
       return prisma.note.delete({
         where: { id },
       });

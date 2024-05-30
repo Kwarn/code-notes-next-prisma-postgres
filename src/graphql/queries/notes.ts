@@ -11,3 +11,13 @@ export const getNotes = `
   }
 }
  `;
+
+export const getNote = `
+  query note($id: ID!) {
+    note(id: $id) {
+      id
+      category
+      content
+    }
+  }
+`;

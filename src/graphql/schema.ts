@@ -30,6 +30,7 @@ export const typeDefs = `
   type Query {
     users: [User]!
     notes: [Note]!
+    note(id: String!): Note!
     form(formName: String!): Form!
   }
 

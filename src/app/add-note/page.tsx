@@ -17,7 +17,7 @@ export default async function AddNotePage() {
   } catch (error) {
     console.error("Error fetching notes:", error);
   }
-  
+
   return (
     <div className="w-full h-screen">
       <h1 className="text-white">Notes</h1>
