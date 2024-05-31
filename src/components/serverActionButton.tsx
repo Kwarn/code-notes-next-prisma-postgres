@@ -5,7 +5,7 @@ interface ButtonProps {
   optimisticCb?: (noteId: string) => void;
 }
 
-export default function Button({
+export default function ServerActionButton({
   id,
   text,
   action,
@@ -15,8 +15,7 @@ export default function Button({
     <form
       action={async (formData) => {
         const noteId = formData.get("id") as string;
-        if (!noteId) return;
-        if (optimisticCb) optimisticCb(noteId);
+        if (optimisticCb) optimisticCb(noteId); // TODO: not ideal handling, this should not be specific to notes.
         return action(formData);
       }}
     >

@@ -1,4 +1,5 @@
 import { createNoteMutation } from "@/graphql/mutations/notes";
+import { CustomError } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 export const createNote = async (formData: FormData) => {
@@ -6,7 +7,10 @@ export const createNote = async (formData: FormData) => {
   const category = formData.get("category");
   const content = formData.get("content");
 
-  if (!category || !content) return;
+  if (!category || !content) {
+    console.error("Missing category or content.");
+    return { success: false, error: "Missing category or content" };
+  }
 
   try {
     const response = await fetch("http://localhost:3000/api/graphql", {
@@ -16,7 +20,6 @@ export const createNote = async (formData: FormData) => {
         query: createNoteMutation,
         variables: { content, category },
       }),
-      cache: "no-store", // TODO: here while developing to avoid caching side effects while debugging
     });
 
     const responseData = await response.json();
@@ -28,8 +31,9 @@ export const createNote = async (formData: FormData) => {
       return { success: false };
     }
   } catch (error) {
-    console.error("Error creating note:", error);
-    return;
+    const customError = error as CustomError;
+    console.error("Error creating note:", customError);
+    return { success: false, error: customError.message };
   } finally {
     revalidatePath("/notes");
   }

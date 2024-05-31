@@ -1,5 +1,5 @@
 import { NoteWithAuthorType } from "@/types/types";
-import SeverActionButton from "./serverActionButton";
+import SeverActionButton from "@/components/serverActionButton";
 
 interface TableProps {
   rows: NoteWithAuthorType[];
@@ -44,14 +44,10 @@ export default function Table({
                     text="delete"
                     action={deleteNote}
                   />
-                  <SeverActionButton
-                    id={id}
-                    text="edit"
-                    action={updateNote}
-                  />
+                  <SeverActionButton id={id} text="edit" action={updateNote} />
                 </td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       </table>

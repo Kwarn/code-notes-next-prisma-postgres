@@ -1,5 +1,7 @@
+import { createNote } from "@/actions/createNote";
 import Form from "@/components/form";
 import { getAddNoteForm } from "@/graphql/queries/forms";
+import { redirect } from "next/navigation";
 
 export default async function AddNotePage() {
   let form;
@@ -10,7 +12,6 @@ export default async function AddNotePage() {
       body: JSON.stringify({
         query: getAddNoteForm,
       }),
-      cache: "no-store", // TODO: here while developing to avoid caching side effects while debugging
     });
     const { data } = await response.json();
     form = data?.form;
@@ -18,11 +19,21 @@ export default async function AddNotePage() {
     console.error("Error fetching notes:", error);
   }
 
+  // TODO: this is duplicated in the [id] route
+  const submitHandler = async (formData: FormData) => {
+    "use server";
+    const result = await createNote(formData);
+    console.log("updateNote", result);
+    if (result?.success) redirect(`/notes?noteId=${result.noteId}`);
+  };
+
   return (
     <div className="w-full h-screen">
       <h1 className="text-white">Notes</h1>
       <div className="flex flex-row w-full">
-        {form && <Form formFields={form.formFields} />}
+        {form && (
+          <Form formFields={form.formFields} submitCallback={submitHandler} />
+        )}
       </div>
     </div>
   );

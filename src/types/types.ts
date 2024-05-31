@@ -25,3 +25,7 @@ export type FormFieldType = {
   options?: string; // json
   defaultValue?: string;
 };
+
+export interface CustomError extends Error {
+  message: string;
+}

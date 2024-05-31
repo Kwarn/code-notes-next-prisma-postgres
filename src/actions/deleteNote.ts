@@ -13,7 +13,6 @@ export const deleteNote = async (formData: FormData) => {
         query: deleteNoteMutation,
         variables: { id },
       }),
-      cache: "no-store",
     });
 
     const responseData = await response.json();

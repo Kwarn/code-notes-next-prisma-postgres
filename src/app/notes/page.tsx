@@ -14,7 +14,6 @@ export default async function NotesPage() {
       body: JSON.stringify({
         query: getNotes,
       }),
-      cache: "no-store", // TODO
     });
 
     const { data } = await response.json();
@@ -32,7 +31,7 @@ export default async function NotesPage() {
   }
 
   const updateNote = async (formData: FormData) => {
-    'use server'
+    "use server";
     const noteId = formData.get("id");
     redirect(`/add-note/${noteId}`);
   };

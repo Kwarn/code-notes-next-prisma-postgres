@@ -17,6 +17,6 @@ export const getNote = async (id: string) => {
 
     return data.note;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 };

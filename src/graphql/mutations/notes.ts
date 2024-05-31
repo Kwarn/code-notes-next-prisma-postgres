@@ -18,5 +18,7 @@ export const deleteNoteMutation = `
 
 export const updateNoteMutation = `
   mutation updateNote ($id: String!, $content: String!, $category: String!) {
-    id
+    updateNote(id: $id, content: $content, category: $category) { 
+      id
+    }
   }`;

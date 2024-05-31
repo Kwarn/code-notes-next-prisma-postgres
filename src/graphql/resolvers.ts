@@ -48,6 +48,15 @@ export const resolvers = {
         },
       });
     },
+    updateNote: (_: undefined, { id, category, content }: NoteType) => {
+      return prisma.note.update({
+        where: { id },
+        data: {
+          category,
+          content,
+        },
+      });
+    },
     deleteNote: (_: undefined, { id }: NoteType) => {
       return prisma.note.delete({
         where: { id },
