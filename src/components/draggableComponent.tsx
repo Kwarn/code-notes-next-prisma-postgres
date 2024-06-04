@@ -8,16 +8,25 @@ type Position = {
 type DraggableComponentProps = {
   isVisiable: Boolean;
   children: ReactElement;
+  toggleIsVisiable: () => void;
 };
 
 const DraggableComponent = ({
   isVisiable,
   children,
+  toggleIsVisiable,
 }: DraggableComponentProps) => {
   const draggableRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [position, setPosition] = useState<Position>({ x: 300, y: 100 });
   const [dragging, setDragging] = useState<boolean>(false);
   const [rel, setRel] = useState<Position>({ x: 0, y: 0 });
+
+  const minimize = () => { setPosition({ x: 300, y: 100 }); }; //TODO: wip
+
+
+  useEffect(() => {
+    setPosition({ x: 300, y: 100 });
+  }, [isVisiable]);
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.button !== 0) return;
@@ -78,20 +87,20 @@ const DraggableComponent = ({
         ref={draggableRef}
         onMouseDown={onMouseDown}
         style={{
-          position: "absolute",
           left: position.x,
           top: position.y,
-          cursor: "move",
-          backgroundColor: "#ccc",
-          width: "200px",
-          height: "200px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          userSelect: "none",
+          minWidth: "200px",
+          minHeight: "200px",
         }}
+        className="absolute cursor-move flex flex-col align-center bg-green-100 rounded-md select-none"
       >
-        <div>{children}</div>
+        <div className="bg-green-300 w-full flex flex-row top-0 justify-end rounded-md">
+          <div className="mr-2">_</div>
+          <div onClick={toggleIsVisiable} className="mr-2 cursor-pointer">X</div>
+        </div>
+        <div className="flex-1 content-center justify-center align-middle">
+          {children}
+        </div>
       </div>
     )
   );

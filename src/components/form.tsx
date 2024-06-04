@@ -56,7 +56,7 @@ export default function Form({
   };
 
   return (
-    <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-300">
+    <div className="flex flex-row items-center rounded-lg m-5 slg:h-20 bg-gray-100">
       <form action={submitCallback}>
         {formFields.map((field) => componentMap[field.type](field))}
         <ClientButton defaultText="Add note" pendingText="Adding note..." />

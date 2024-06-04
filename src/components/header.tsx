@@ -8,6 +8,11 @@ import { useState } from "react";
 
 export default function Header() {
   const [isAddNoteVisible, setIsAddNoteVisible] = useState<Boolean>(false);
+
+  const toggleIsAddNoteVisible = () => {
+    setIsAddNoteVisible(!isAddNoteVisible);
+  };
+
   return (
     <div className="flex flex-row items-center rounded-lg m-5 lg:h-20 bg-gray-300">
       <Link href={"/"}>
@@ -31,7 +36,10 @@ export default function Header() {
       >
         Add note
       </button>
-      <CustomDraggable isVisiable={isAddNoteVisible}>
+      <CustomDraggable
+        isVisiable={isAddNoteVisible}
+        toggleIsVisiable={toggleIsAddNoteVisible}
+      >
         <AddNote />
       </CustomDraggable>
     </div>
