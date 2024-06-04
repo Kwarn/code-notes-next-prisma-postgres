@@ -1,9 +1,9 @@
+'use server'
 import { createNoteMutation } from "@/graphql/mutations/notes";
 import { CustomError } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 export const createNote = async (formData: FormData) => {
-  "use server";
   const category = formData.get("category");
   const content = formData.get("content");
 

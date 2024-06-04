@@ -10,7 +10,7 @@ type FormProps = {
   submitCallback: (formData: FormData) => void;
 };
 
-export default async function Form({
+export default function Form({
   formFields,
   submitCallback,
 }: Readonly<FormProps>) {

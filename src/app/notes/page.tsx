@@ -4,6 +4,8 @@ import NotesComponent from "@/components/notes";
 import { deleteNote } from "@/actions/deleteNote";
 import { formatDate } from "@/utils/utils";
 import { redirect } from "next/navigation";
+import CustomDraggable from "@/components/draggableComponent";
+import AddNote from "@/components/addNote";
 
 export default async function NotesPage() {
   let notes: NoteWithAuthorType[] | undefined | null = null;
